@@ -5,8 +5,7 @@ class DifferentCurrencyError(Exception):
 class Currency:
     """
     Represents a currency. Does not contain any exchange rate info.
-    """
-
+    """git 
     def __init__(self, name, code, symbol=None, digits=2):
         """
         Parameters:
@@ -73,9 +72,9 @@ class Money:
         """
         Add two money objects of the same currency. If they have different
         currencies, raise a DifferentCurrencyError.
-        """
+        # """
         if self.currency.code == other.currency.code:
-            return ((self.amount + other.amount), self.currency.code)
+            return Money((self.amount + other.amount), self.currency)
         else:
             raise DifferentCurrencyError
 
@@ -84,16 +83,20 @@ class Money:
         Subtract two money objects of the same currency. If they have different
         currencies, raise a DifferentCurrencyError.
         """
-        pass
+        if self.currency.code == other.currency.code:
+            return Money(self.amount - other.amount, self.currency)
+        else:
+            raise DifferentCurrencyError
+        
 
     def mul(self, multiplier):
         """
         Multiply a money object by a number to get a new money object.
         """
-        pass
+        return Money(self.amount * multiplier, self.currency)
 
     def div(self, divisor):
         """
         Divide a money object by a number to get a new money object.
         """
-        pass
+        return Money(self.amount / divisor, self.currency)
